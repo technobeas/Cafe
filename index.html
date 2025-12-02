@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>OWL Cafe — Menu (Light)</title>
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Special+Elite&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        /* Light theme palette */
+        --bg: #ffffff;
+        --paper: #fbfaf8; /* card / paper background */
+        --accent: #c4913a;
+        --accent-dark: #a06f2a;
+        --muted: #6b6b6b;
+        --text: #111111;
+        --card-elev: 0 10px 26px rgba(17, 17, 17, 0.06);
+        --radius: 12px;
+        --border-weak: rgba(17, 17, 17, 0.06);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+        background-color: var(--bg);
+        background: linear-gradient(180deg, var(--bg), #f6f4f2);
+        color: var(--text);
+        font-family: "Special Elite", monospace;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overscroll-behavior: contain;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* hide scrollbar utility */
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      /* Layout */
+      .hero {
+        width: 100%;
+        padding: 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: linear-gradient(
+          90deg,
+          rgba(196, 145, 58, 0.06),
+          rgba(160, 111, 42, 0.03)
+        );
+        border-bottom: 1px solid var(--border-weak);
+      }
+      .hero-left {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .brand {
+        font-family: "Playfair Display", serif;
+        font-size: 20px;
+        color: var(--text);
+        letter-spacing: 1px;
+        font-weight: 700;
+      }
+      .tagline {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .hero-image {
+        width: 64px;
+        height: 64px;
+        border-radius: 12px;
+        object-fit: cover;
+      }
+
+      main {
+        padding: 12px;
+        padding-bottom: 140px;
+      }
+
+      .section-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin: 12px 0 6px;
+      }
+      .section-heading h2 {
+        font-family: "Playfair Display", serif;
+        font-size: 18px;
+        margin: 0;
+        color: var(--text);
+      }
+      .section-heading small {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      /* Search */
+      .search-wrap {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        margin: 8px 0;
+        position: relative;
+      }
+      #search-input {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 999px;
+        background: rgba(17, 17, 17, 0.02);
+        border: 1px solid var(--border-weak);
+        color: var(--text);
+        font-size: 16px;
+        outline: none;
+      }
+      #search-input::placeholder {
+        color: rgba(107, 107, 107, 0.5);
+      }
+
+      /* Categories */
+      .category-container {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        padding: 8px 2px;
+        margin: 6px 0;
+      }
+      .category-container.no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .category-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        min-width: 84px;
+        padding: 8px;
+        border-radius: 12px;
+        cursor: pointer;
+        user-select: none;
+        border: 1px solid var(--border-weak);
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.01), transparent);
+      }
+      .category-circle {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--paper);
+        border: 2px solid transparent;
+      }
+      .category-btn img {
+        width: 52px;
+        height: 52px;
+        object-fit: cover;
+        display: block;
+        background-color: var(--paper);
+      }
+      .category-label {
+        font-size: 11px;
+        color: var(--muted);
+        text-transform: uppercase;
+        font-family: "Playfair Display", serif;
+        letter-spacing: 1px;
+      }
+      .category-btn.active {
+        box-shadow: 0 6px 18px rgba(196, 145, 58, 0.06);
+        border-color: rgba(196, 145, 58, 0.12);
+        transform: translateY(-3px);
+      }
+
+      /* Popular */
+      #popular-section {
+        margin-top: 8px;
+      }
+      #popular-container {
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+        padding: 8px 2px;
+      }
+      #popular-container.no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .popular-card {
+        min-width: 240px;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        box-shadow: none;
+        border: none;
+        overflow: visible;
+      }
+
+      /* image wrapper */
+      .img-wrap {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        overflow: hidden;
+        position: relative;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.01),
+          rgba(0, 0, 0, 0.02)
+        );
+      }
+      .img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        background-color: var(--paper); /* prevents flash */
+        transform-origin: center;
+        transition: transform 220ms ease;
+      }
+      .card:hover .img-wrap img,
+      .popular-card:hover img {
+        transform: scale(1.03);
+      }
+      .img-overlay {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(0, 0, 0, 0.02)
+        );
+      }
+
+      /* compositing hints to reduce repaint flicker */
+      .img-wrap img,
+      .popular-card,
+      .card {
+        will-change: transform;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        backface-visibility: hidden;
+      }
+
+      /* Grid */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-top: 14px;
+        align-items: start;
+      }
+      @media (min-width: 740px) {
+        .grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      /* Card */
+      .card {
+        background: var(--paper);
+        border-radius: var(--radius);
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        box-shadow: var(--card-elev);
+        border: 1px solid var(--border-weak);
+        min-height: 260px;
+      }
+      .card-content {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex: 1;
+      }
+      .card-title {
+        font-family: "Playfair Display", serif;
+        font-size: 18px;
+        color: var(--text);
+        margin: 0;
+        line-height: 1.12;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .card-meta {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.2;
+        min-height: 38px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+      }
+      .card-price {
+        font-weight: 800;
+        color: var(--text);
+        font-size: 16px;
+      }
+      .bottom-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-top: auto;
+      }
+
+      .tags {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-top: 4px;
+      }
+      .tag {
+        font-size: 11px;
+        background: rgba(17, 17, 17, 0.02);
+        color: var(--muted);
+        padding: 4px 8px;
+        border-radius: 999px;
+        border: 1px solid var(--border-weak);
+      }
+
+      .like-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        color: var(--text);
+        font-weight: 700;
+        font-size: 13px;
+      }
+
+      .like-icon {
+        width: 36px;
+        height: 36px;
+        display: block;
+        background-color: var(--paper);
+      }
+
+      .pagination {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        margin: 18px 0 36px;
+        flex-wrap: wrap;
+      }
+      .pagination button {
+        padding: 8px 10px;
+        border-radius: 8px;
+        background: transparent;
+        border: 1px solid var(--border-weak);
+        color: var(--muted);
+        min-width: 40px;
+      }
+      .pagination button.active {
+        background: var(--accent-dark);
+        color: #fff;
+        border-color: var(--accent-dark);
+        box-shadow: 0 6px 18px rgba(160, 111, 42, 0.12);
+      }
+
+      .bottom-menu {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 14px;
+        min-width: 260px;
+        height: 60px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        border-radius: 36px;
+        color: #fff;
+        font-weight: 700;
+        z-index: 1000;
+        box-shadow: 0 12px 34px rgba(17, 17, 17, 0.06);
+        padding: 0 12px;
+      }
+      .bottom-menu button {
+        background: transparent;
+        border: none;
+        font-weight: 700;
+        cursor: pointer;
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 12px;
+      }
+
+      /* Drawer + overlay */
+      .drawer {
+        position: fixed;
+        right: -100%;
+        top: 0;
+        height: 100%;
+        width: 92vw;
+        max-width: 380px;
+        background: linear-gradient(180deg, var(--paper), rgba(0, 0, 0, 0.02));
+        box-shadow: -14px 0 36px rgba(17, 17, 17, 0.06);
+        transition: right 260ms ease;
+        z-index: 1001;
+        padding: 14px;
+        overflow-y: auto;
+        border-left: 1px solid var(--border-weak);
+      }
+      .drawer.open {
+        right: 0;
+      }
+      .drawer-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+      }
+      .drawer h3 {
+        margin: 0;
+        font-family: "Playfair Display", serif;
+        color: var(--text);
+      }
+      .drawer-close {
+        background: var(--accent);
+        border: none;
+        color: #fff;
+        padding: 8px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 700;
+      }
+      /* overlay sits behind drawer and covers body */
+      #drawer-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(17, 17, 17, 0.06);
+        z-index: 1000;
+        display: none;
+      }
+
+      .liked-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 12px;
+      }
+      .liked-card {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.01), transparent);
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid var(--border-weak);
+      }
+      .liked-card img {
+        width: 76px;
+        height: 76px;
+        object-fit: cover;
+        border-radius: 8px;
+        flex-shrink: 0;
+        background-color: var(--paper);
+      }
+      .liked-meta {
+        flex: 1;
+      }
+      .liked-name {
+        font-family: "Playfair Display", serif;
+        font-size: 13px;
+        margin: 0;
+        color: var(--text);
+      }
+      .liked-price {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-weight: 700;
+      }
+      .liked-unlike {
+        background: transparent;
+        border: 1px solid var(--border-weak);
+        color: var(--muted);
+        padding: 6px 8px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      @media (max-width: 420px) {
+        .grid {
+          grid-template-columns: repeat(1, 1fr);
+        }
+        .hero {
+          padding: 12px;
+          gap: 10px;
+        }
+        .hero-image {
+          width: 56px;
+          height: 56px;
+        }
+        .brand {
+          font-size: 18px;
+        }
+        .bottom-menu {
+          min-width: 220px;
+          height: 56px;
+        }
+      }
+
+      /* small helper message styling */
+      .empty-msg {
+        grid-column: 1/-1;
+        text-align: center;
+        color: var(--muted);
+        padding: 14px 6px;
+      }
+
+      /* lighter no-tap-flash (recommended) */
+      button,
+      .like-btn,
+      .bottom-menu button,
+      .drawer-close,
+      .category-btn,
+      .category-circle,
+      .category-btn img {
+        -webkit-tap-highlight-color: transparent !important;
+        tap-highlight-color: transparent !important;
+        -webkit-touch-callout: none !important;
+        touch-action: manipulation !important;
+        -webkit-user-select: none !important;
+        user-select: none !important;
+      }
+
+      /* remove forced transparent backgrounds — allow components to style themselves */
+      button:active,
+      .like-btn:active,
+      .bottom-menu button:active,
+      .drawer-close:active,
+      .category-btn:active {
+        outline: none !important;
+        box-shadow: none !important;
+        background: transparent;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HERO -->
+    <header class="hero" role="banner">
+      <img class="hero-image" src="owl-logo.png" alt="OWL Cafe logo / owl" />
+      <div class="hero-left">
+        <div class="brand">OWL Cafe</div>
+        <div class="tagline">Warm Cups. Quiet Nights</div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Popular -->
+      <div id="popular-section">
+        <div
+          class="section-heading"
+          id="popular-heading"
+          style="margin-top: 6px"
+        >
+          <h2>Popular</h2>
+          <small>Staff picks</small>
+        </div>
+        <div
+          id="popular-container"
+          class="no-scrollbar"
+          aria-live="polite"
+        ></div>
+      </div>
+
+      <!-- Search -->
+      <div class="search-wrap">
+        <input id="search-input" placeholder="Search items..." />
+      </div>
+
+      <!-- Categories -->
+      <div id="categories-section">
+        <div class="section-heading" style="margin-top: 6px">
+          <h2>Categories</h2>
+          <small>Browse</small>
+        </div>
+        <div
+          class="category-container no-scrollbar"
+          id="category-container"
+        ></div>
+      </div>
+
+      <!-- Grid -->
+      <div id="all-container" class="grid" aria-live="polite"></div>
+
+      <!-- Pagination -->
+      <div class="pagination" id="pagination" role="navigation"></div>
+    </main>
+
+    <!-- overlay for closing drawer when tapping body -->
+    <div id="drawer-overlay" aria-hidden="true"></div>
+
+    <!-- Bottom menu -->
+    <div class="bottom-menu" role="navigation">
+      <button id="home-btn">Home</button>
+      <button id="likes-btn">Likes</button>
+    </div>
+
+    <!-- Drawer for liked items -->
+    <aside class="drawer" id="drawer" aria-hidden="true">
+      <div class="drawer-header">
+        <h3>Liked Items</h3>
+        <button id="close-drawer" class="drawer-close">Close ✖</button>
+      </div>
+      <div id="liked-container" style="margin-top: 12px"></div>
+    </aside>
+
+    <script>
+      // icons (replace with your svg/png files)
+      const LIKE_ICON = "Like.png";
+      const LIKED_ICON = "Liked.png";
+      const PRODUCTS_JSON = "data.json";
+      const STORAGE_KEY = "owl-cafe-likes-v1";
+
+      let allData = [];
+      let filteredData = [];
+      let likes = {};
+      let currentPage = 1;
+      const itemsPerPage = 6;
+      let selectedCategory = "";
+
+      const priceFormatter = new Intl.NumberFormat("en-IN", {
+        style: "currency",
+        currency: "INR",
+        maximumFractionDigits: 0,
+      });
+
+      function debounce(fn, wait) {
+        let t;
+        return function (...args) {
+          clearTimeout(t);
+          t = setTimeout(() => fn.apply(this, args), wait);
+        };
+      }
+
+      function loadLikes() {
+        try {
+          return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+        } catch {
+          return {};
+        }
+      }
+      function saveLikes() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(likes));
+      }
+      likes = loadLikes();
+
+      async function fetchData() {
+        try {
+          const res = await fetch(PRODUCTS_JSON);
+          allData = await res.json();
+        } catch (err) {
+          console.error("Failed to load products.json", err);
+          allData = [];
+          updateVisibility();
+          return;
+        }
+
+        // Normalize and preserve prep/tags if present
+        allData = allData.map((p, i) => ({
+          id: String(p.id ?? p.sku ?? i),
+          name: p.name ?? "Unnamed",
+          price: p.price ?? 0,
+          image: p.image ?? "owl-logo.png",
+          category: p.category ?? "Uncategorized",
+          description: p.description ?? "",
+          quantity: p.quantity ?? "",
+          popular: !!p.popular,
+          prep: p.prep ?? p.preparation ?? "",
+          tags: Array.isArray(p.tags) ? p.tags : [],
+        }));
+
+        populatePopular();
+        populateCategories();
+        applyFilters();
+      }
+
+      /* updateVisibility:
+         - hides Popular/Categories only if they are truly empty
+         - does NOT hide them because of search results
+      */
+      function updateVisibility() {
+        const popularSection = document.getElementById("popular-section");
+        const popularContainer = document.getElementById("popular-container");
+        const hasPopular = allData.some((i) => i.popular);
+        if (!hasPopular) {
+          popularSection.classList.add("hidden");
+          popularContainer.classList.add("hidden");
+        } else {
+          popularSection.classList.remove("hidden");
+          popularContainer.classList.remove("hidden");
+        }
+
+        const categoriesSection = document.getElementById("categories-section");
+        const categoryContainer = document.getElementById("category-container");
+        const cats = Array.from(new Set(allData.map((i) => i.category))).filter(
+          Boolean
+        );
+        if (!cats.length) {
+          categoriesSection.classList.add("hidden");
+          categoryContainer.classList.add("hidden");
+        } else {
+          categoriesSection.classList.remove("hidden");
+          categoryContainer.classList.remove("hidden");
+        }
+      }
+
+      function makeTagNode(text) {
+        const t = document.createElement("span");
+        t.className = "tag";
+        t.textContent = text;
+        return t;
+      }
+
+      function createCard(item) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.dataset.id = item.id;
+
+        const imgWrap = document.createElement("div");
+        imgWrap.className = "img-wrap";
+        const img = document.createElement("img");
+        img.src = item.image;
+        img.alt = item.name;
+        img.onerror = () => (img.src = "owl-logo.png");
+        imgWrap.appendChild(img);
+        const overlay = document.createElement("div");
+        overlay.className = "img-overlay";
+        imgWrap.appendChild(overlay);
+        card.appendChild(imgWrap);
+
+        const content = document.createElement("div");
+        content.className = "card-content";
+
+        const title = document.createElement("h3");
+        title.className = "card-title";
+        title.textContent = item.name;
+        content.appendChild(title);
+
+        const meta = document.createElement("div");
+        meta.className = "card-meta";
+        const descText = item.description ? item.description : "";
+        const prepText = item.prep ? ` • ${item.prep}` : "";
+        meta.innerHTML = `<p>${descText}${prepText}</p>`;
+        content.appendChild(meta);
+
+        if (item.tags && item.tags.length) {
+          const tagsWrap = document.createElement("div");
+          tagsWrap.className = "tags";
+          item.tags.forEach((tag) => tagsWrap.appendChild(makeTagNode(tag)));
+          content.appendChild(tagsWrap);
+        }
+
+        const bottom = document.createElement("div");
+        bottom.className = "bottom-row";
+
+        const priceEl = document.createElement("div");
+        priceEl.className = "card-price";
+        try {
+          priceEl.textContent = priceFormatter.format(item.price);
+        } catch {
+          priceEl.textContent = item.price ?? "";
+        }
+        bottom.appendChild(priceEl);
+
+        const likeBtn = document.createElement("button");
+        likeBtn.className = "like-btn";
+        likeBtn.dataset.id = item.id;
+        likeBtn.setAttribute("aria-pressed", likes[item.id] ? "true" : "false");
+
+        const icon = document.createElement("img");
+        icon.className = "like-icon";
+        icon.alt = likes[item.id] ? "Liked" : "Like";
+        icon.src = likes[item.id] ? LIKED_ICON : LIKE_ICON;
+        likeBtn.appendChild(icon);
+
+        likeBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          toggleLike(item.id);
+        });
+
+        bottom.appendChild(likeBtn);
+        content.appendChild(bottom);
+
+        card.appendChild(content);
+        return card;
+      }
+
+      function populatePopular() {
+        const container = document.getElementById("popular-container");
+        container.innerHTML = "";
+        const popularItems = allData.filter((i) => i.popular);
+        if (!popularItems.length) {
+          container.classList.add("hidden");
+          document.getElementById("popular-section").classList.add("hidden");
+          return;
+        }
+
+        popularItems.forEach((item) => {
+          const card = createCard(item);
+          card.classList.add("popular-card");
+          card.style.minWidth = "240px";
+          card.style.margin = "0";
+          container.appendChild(card);
+        });
+
+        container.classList.remove("hidden");
+        document.getElementById("popular-section").classList.remove("hidden");
+        updateLikeButtonsUI();
+      }
+
+      function populateCategories() {
+        const container = document.getElementById("category-container");
+        container.innerHTML = "";
+        const categories = Array.from(
+          new Set(allData.map((i) => i.category))
+        ).filter(Boolean);
+        if (!categories.length) {
+          container.classList.add("hidden");
+          document.getElementById("categories-section").classList.add("hidden");
+          return;
+        }
+        categories.forEach((cat) => {
+          const btn = document.createElement("div");
+          btn.className = "category-btn";
+          btn.setAttribute("role", "button");
+          btn.setAttribute("tabindex", "0");
+          btn.setAttribute("aria-pressed", "false");
+
+          const circle = document.createElement("div");
+          circle.className = "category-circle";
+
+          const catImg = document.createElement("img");
+          catImg.alt = cat;
+          catImg.src = `assets/images/categories/${encodeURIComponent(
+            cat
+          )}.webp`;
+          catImg.onerror = () => {
+            const fallback = allData.find((p) => p.category === cat);
+            catImg.src = fallback ? fallback.image : "owl-logo.png";
+          };
+          circle.appendChild(catImg);
+
+          const label = document.createElement("div");
+          label.className = "category-label";
+          label.textContent = cat;
+
+          btn.appendChild(circle);
+          btn.appendChild(label);
+
+          btn.addEventListener("click", () => {
+            selectedCategory = selectedCategory === cat ? "" : cat;
+            document
+              .querySelectorAll(".category-btn")
+              .forEach((b) => b.classList.remove("active"));
+            if (selectedCategory) {
+              btn.classList.add("active");
+              btn.setAttribute("aria-pressed", "true");
+            } else {
+              btn.setAttribute("aria-pressed", "false");
+            }
+            applyFilters();
+          });
+
+          container.appendChild(btn);
+        });
+        container.classList.remove("hidden");
+        document
+          .getElementById("categories-section")
+          .classList.remove("hidden");
+      }
+
+      function renderAllItems(data) {
+        const container = document.getElementById("all-container");
+        container.innerHTML = "";
+        const start = (currentPage - 1) * itemsPerPage;
+        const pageItems = data.slice(start, start + itemsPerPage);
+        if (!pageItems.length) {
+          container.innerHTML =
+            '<div class="empty-msg">No items matched your search.</div>';
+          container.classList.remove("hidden");
+          document.getElementById("pagination").classList.add("hidden");
+          updateLikeButtonsUI();
+          updateVisibility();
+          return;
+        }
+        pageItems.forEach((item) => container.appendChild(createCard(item)));
+        container.classList.remove("hidden");
+        renderPagination(data.length);
+        updateLikeButtonsUI();
+        updateVisibility();
+      }
+
+      function renderPagination(totalItems) {
+        const pagination = document.getElementById("pagination");
+        pagination.innerHTML = "";
+        const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
+        if (totalPages <= 1) {
+          pagination.classList.add("hidden");
+          return;
+        }
+        for (let i = 1; i <= totalPages; i++) {
+          const btn = document.createElement("button");
+          btn.textContent = i;
+          if (i === currentPage) btn.classList.add("active");
+          btn.addEventListener("click", () => {
+            currentPage = i;
+            renderAllItems(filteredData.length ? filteredData : allData);
+            window.scrollTo({ top: 220, behavior: "smooth" });
+          });
+          pagination.appendChild(btn);
+        }
+        pagination.classList.remove("hidden");
+      }
+
+      const debouncedApply = debounce(() => {
+        applyFilters();
+      }, 300);
+
+      function applyFilters() {
+        const searchValue = document
+          .getElementById("search-input")
+          .value.trim()
+          .toLowerCase();
+
+        filteredData = allData.filter((item) => {
+          const matchCat = selectedCategory
+            ? item.category === selectedCategory
+            : true;
+
+          const inName = item.name.toLowerCase().includes(searchValue);
+          const inDesc =
+            item.description &&
+            item.description.toLowerCase().includes(searchValue);
+          const inPrep =
+            item.prep && item.prep.toLowerCase().includes(searchValue);
+          const inTags =
+            item.tags &&
+            item.tags.some((t) => t.toLowerCase().includes(searchValue));
+
+          const matchSearch = searchValue
+            ? inName || inDesc || inPrep || inTags
+            : true;
+
+          return matchCat && matchSearch;
+        });
+
+        currentPage = 1;
+
+        if (!filteredData.length) {
+          document.getElementById("all-container").innerHTML =
+            '<div class="empty-msg">No items matched your search.</div>';
+          document.getElementById("all-container").classList.remove("hidden");
+          document.getElementById("pagination").classList.add("hidden");
+          updateVisibility();
+          return;
+        }
+        renderAllItems(filteredData.length ? filteredData : allData);
+      }
+
+      document
+        .getElementById("search-input")
+        .addEventListener("input", debouncedApply);
+
+      // Likes / Drawer
+      function toggleLike(id) {
+        if (likes[id]) delete likes[id];
+        else likes[id] = true;
+        saveLikes();
+        updateLikeButtonsUI();
+        const d = document.getElementById("drawer");
+        if (d.classList.contains("open")) renderLikedDrawer();
+      }
+
+      function updateLikeButtonsUI() {
+        document.querySelectorAll(".like-btn").forEach((btn) => {
+          const id = btn.dataset.id;
+          if (!id) return;
+          const img = btn.querySelector("img.like-icon");
+
+          if (!img) return;
+          if (likes[id]) {
+            btn.classList.add("liked");
+            img.src = LIKED_ICON;
+            img.alt = "Liked";
+            btn.setAttribute("aria-pressed", "true");
+          } else {
+            btn.classList.remove("liked");
+            img.src = LIKE_ICON;
+            img.alt = "Like";
+            btn.setAttribute("aria-pressed", "false");
+          }
+        });
+      }
+
+      function renderLikedDrawer() {
+        const container = document.getElementById("liked-container");
+        container.innerHTML = "";
+        const likedIds = Object.keys(likes);
+        if (!likedIds.length) {
+          container.innerHTML =
+            "<p style='color:#8c7b63'>You haven't liked any items yet.</p>";
+          return;
+        }
+        const list = document.createElement("div");
+        list.className = "liked-list";
+        const likedItems = allData.filter((i) => likedIds.includes(i.id));
+        likedItems.forEach((item) => {
+          const card = document.createElement("div");
+          card.className = "liked-card";
+          card.dataset.id = item.id;
+
+          const img = document.createElement("img");
+          img.src = item.image;
+          img.alt = item.name;
+          img.onerror = () => (img.src = "owl-logo.png");
+
+          const meta = document.createElement("div");
+          meta.className = "liked-meta";
+          const name = document.createElement("p");
+          name.className = "liked-name";
+          name.textContent = item.name;
+          const price = document.createElement("p");
+          price.className = "liked-price";
+          try {
+            price.textContent = priceFormatter.format(item.price ?? 0);
+          } catch {
+            price.textContent = item.price ?? "";
+          }
+
+          meta.appendChild(name);
+          meta.appendChild(price);
+
+          const unlike = document.createElement("button");
+          unlike.className = "liked-unlike";
+          unlike.textContent = "✖";
+          unlike.title = "Remove";
+          unlike.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (likes[item.id]) delete likes[item.id];
+            saveLikes();
+            updateLikeButtonsUI();
+            renderLikedDrawer();
+          });
+
+          card.appendChild(img);
+          card.appendChild(meta);
+          card.appendChild(unlike);
+          list.appendChild(card);
+        });
+        container.appendChild(list);
+      }
+
+      // Drawer & overlay handlers
+      const overlay = document.getElementById("drawer-overlay");
+      const drawer = document.getElementById("drawer");
+
+      function openDrawer() {
+        drawer.classList.add("open");
+        drawer.setAttribute("aria-hidden", "false");
+        overlay.style.display = "block";
+        overlay.setAttribute("aria-hidden", "false");
+        renderLikedDrawer();
+      }
+      function closeDrawer() {
+        drawer.classList.remove("open");
+        drawer.setAttribute("aria-hidden", "true");
+        overlay.style.display = "none";
+        overlay.setAttribute("aria-hidden", "true");
+      }
+
+      document.getElementById("likes-btn").addEventListener("click", () => {
+        if (drawer.classList.contains("open")) closeDrawer();
+        else openDrawer();
+      });
+      document
+        .getElementById("close-drawer")
+        .addEventListener("click", () => closeDrawer());
+      overlay.addEventListener("click", () => closeDrawer());
+
+      document.addEventListener(
+        "click",
+        (e) => {
+          if (!drawer.classList.contains("open")) return;
+
+          const clickedInsideDrawer = drawer.contains(e.target);
+          const clickedOnLikesBtn = e.target.closest("#likes-btn");
+
+          if (clickedInsideDrawer) {
+            const clickedInLikedCard = !!e.target.closest(".liked-card");
+            if (!clickedInLikedCard) {
+              closeDrawer();
+            }
+            return;
+          }
+
+          if (!clickedOnLikesBtn) {
+            closeDrawer();
+          }
+        },
+        { capture: true }
+      );
+
+      document.getElementById("home-btn").addEventListener("click", () => {
+        selectedCategory = "";
+        filteredData = [];
+        currentPage = 1;
+        document.getElementById("search-input").value = "";
+        document
+          .querySelectorAll(".category-btn")
+          .forEach((b) => b.classList.remove("active"));
+        populatePopular();
+        populateCategories();
+        renderAllItems(allData);
+        updateVisibility();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      // startup
+      function loadLikesStorage() {
+        likes = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+      }
+      loadLikesStorage();
+      fetchData();
+    </script>
+  </body>
+</html>
